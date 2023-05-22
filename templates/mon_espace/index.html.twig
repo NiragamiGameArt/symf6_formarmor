@@ -1,0 +1,48 @@
+{% extends 'admin_layout.html.twig' %}
+{% block FormArmor_body %}
+	<h3>AFFICHAGE DES FORMATIONS EN ATTENTE DE VALIDATION</h3>
+	<table class="table">
+		<thead>
+		<tr>
+			<th>Id</th>
+			<th>Formation Id</th>
+			<th>Date debut</th>
+			<th>Nb places</th>
+			<th>Nb inscrits</th>
+			<th>Nb places restantes</th>
+			<th>Close</th>
+            <th>Option</th>
+
+		</tr>
+		</thead>
+		<tbody>
+
+        {% for session in lesSessions %}
+                    <tr {% if loop.index is even %} class="success" {% else %} class="info" {% endif %}>
+                        <td>{{session.getId()}}</td>
+                        <td>{{session.getFormation().getId()}}</td>
+                        <td>{{session.getDateDebut()|date('Y/m/d')}}</td>
+                        <td>{{session.nbPlaces()}}</td>
+                        <td>{{session.nbInscrits()}}</td>
+                        <td>{{session.nbPlaces() - session.nbInscrits()}}</td>
+                        {% if (session.close() == 1) %}
+                            <td>Oui</td>
+                        {% else %}
+                            <td>Non</td>
+                        {% endif %}
+                        <td><a href="{{ path('monEspaceDetail', {'id': session.id})}}">Détails</a></td>
+                        
+                    </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+        
+        
+
+	<script>
+		$(function() {
+			$('#menu7').attr('class', 'active');
+		});
+	</script>
+
+{% endblock %}

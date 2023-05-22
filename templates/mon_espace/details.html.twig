@@ -1,0 +1,67 @@
+{% extends 'admin_layout.html.twig' %}
+{% block FormArmor_body %}
+	<h3>AFFICHAGE DES CLIENTS DE LA FORMATION</h3>
+	<table class="table">
+		<thead>
+		<tr>
+        
+        <!--<th> Client_id </th> -->
+        <!--<th> statut_id </th> -->
+            <th> Nom </th>
+        <!--<th> password </th> -->
+            <th> Adresse </th>
+            <th> CP </th>
+            <th> Ville </th>
+            <th> Email </th>
+        <!--<th> nbhcpta </th> -->
+        <!--<th> nbhbur </th> -->
+            <th> Téléphone </th>
+
+            <th> Inscr_id </th>
+            <th> Sess_id </th>
+            <th> Date_inscription </th>
+            <th> Validee </th>
+
+		</tr>
+		</thead>
+		<tbody>
+
+        {% for inscription in lesInscriptions %}
+                <tr {% if loop.index is even %} class="success" {% else %} class="info" {% endif %}>
+                <!--<td>{{inscription.getId()}}</td> -->
+                <!--<td>{{inscription.getClient().getId()}}</td> -->
+                <!--<td>{{inscription.getClient().getStatut().getId()}}</td> -->
+                    <td>{{inscription.getClient().getNom()}}</td>
+                <!--<td>{{inscription.getClient().getPassword()}}</td> -->
+                    <td>{{inscription.getClient().getAdresse()}}</td>
+                    <td>{{inscription.getClient().getCp()}}</td>
+                    <td>{{inscription.getClient().getVille()}}</td>
+                    <td>{{inscription.getClient().getEmail()}}</td>
+                <!--<td>{{inscription.getClient().getNbhcpta()}}</td> -->
+                <!--<td>{{inscription.getClient().getNbhbur()}}</td> -->
+                    <td>{{inscription.getClient().getTel()}}</td>
+
+                    <td>{{inscription.getId()}}</td>
+                    <td>{{inscription.getSessionFormationId().getId()}}</td>
+                    <td>{{inscription.getDateInscription()|date('Y/m/d')}}</td>
+                    {% if (inscription.getValidee() == 1) %}
+                        <td>Oui</td>
+                    {% else %}
+                        <td>Non</td>
+                    {% endif %}                             
+                </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+
+        <a href="{{ path ('valider_session', {'id' : id_session} )}}" class="btn btn-success text-dark">Valider</a>        
+        <a href="{{ path ('annuler_session', {'id' : id_session} )}}" class="btn btn-danger text-dark">Annuler</a>
+
+
+	<script>
+		$(function() {
+			$('#menu7').attr('class', 'active');
+		});
+	</script>
+
+{% endblock %}
